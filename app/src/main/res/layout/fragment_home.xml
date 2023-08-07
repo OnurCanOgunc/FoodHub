@@ -12,8 +12,8 @@
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-condensed"
         android:padding="12dp"
-        android:textColor="@color/black"
         android:text="@string/all_recipes"
+        android:textColor="@color/black"
         android:textSize="30sp"
         android:textStyle="bold" />
 
@@ -24,60 +24,56 @@
         android:layout_marginHorizontal="12dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/searchbar" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/over_popular_items"
-        android:textSize="24sp"
-        android:textColor="@color/seed"
+        android:layout_marginStart="12dp"
         android:fontFamily="sans-serif-condensed"
-        android:textStyle="bold"
-        android:layout_marginStart="12dp"/>
+        android:text="@string/over_popular_items"
+        android:textColor="@color/seed"
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="200dp"
+        android:layout_marginHorizontal="12dp"
         android:layout_marginTop="2dp"
-        android:contentDescription="@string/popular_meals"
-        android:layout_marginHorizontal="12dp" />
+        android:contentDescription="@string/popular_meals" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="12dp"
-        tools:ignore="MissingConstraints"
+        android:contentDescription="@string/tablayout"
         app:tabBackground="@drawable/indicator"
         app:tabGravity="center"
         app:tabIndicator="@null"
-        android:contentDescription="@string/tablayout"
-        app:tabIndicatorGravity="center"/>
+        app:tabIndicatorGravity="center"
+        tools:ignore="MissingConstraints" />
 
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/categories"
-        android:textSize="24sp"
+        android:layout_marginStart="12dp"
         android:layout_marginTop="15dp"
-        android:textColor="@color/seed"
         android:fontFamily="sans-serif-condensed"
-        android:textStyle="bold"
-        android:layout_marginStart="12dp"/>
+        android:text="@string/categories"
+        android:textColor="@color/seed"
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
-    <androidx.cardview.widget.CardView
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcv_categories"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="10dp"
         android:layout_marginHorizontal="12dp"
-        app:cardCornerRadius="10dp"
-        app:cardUseCompatPadding="true">
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rcv_categories"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </androidx.cardview.widget.CardView>
+        android:layout_marginBottom="10dp" />
 
 
 </LinearLayout>

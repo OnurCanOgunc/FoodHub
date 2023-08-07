@@ -7,4 +7,6 @@
     <string name="all_recipes">All Recipes</string>
     <string name="tablayout">TabLayout</string>
     <string name="categories">Categories</string>
+    <string name="category">CATEGORY</string>
+    <string name="meal_image">meal_image</string>
 </resources>

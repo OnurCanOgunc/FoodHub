@@ -19,7 +19,7 @@ abstract class BaseFragment<VM: ViewModel, VB:ViewBinding>(
     protected val binding: VB get() = _binding as VB
 
     protected abstract fun observeEvents()
-
+    protected abstract fun onCreateFinished()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,6 +35,7 @@ abstract class BaseFragment<VM: ViewModel, VB:ViewBinding>(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        onCreateFinished()
         observeEvents()
     }
 

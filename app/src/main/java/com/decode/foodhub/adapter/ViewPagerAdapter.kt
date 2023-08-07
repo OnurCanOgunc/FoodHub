@@ -11,7 +11,7 @@ import coil.load
 import com.decode.foodhub.R
 import dagger.hilt.android.qualifiers.ApplicationContext
 
-class ViewPagerAdapter(private val imageUrlList: List<String>,@ApplicationContext val context: Context): PagerAdapter() {
+class ViewPagerAdapter(private val imageUrlList: List<String>, @ApplicationContext val context: Context): PagerAdapter() {
 
     override fun getCount(): Int = imageUrlList.size
 
