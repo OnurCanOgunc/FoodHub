@@ -2,6 +2,7 @@ package com.decode.foodhub.data.network
 
 
 import com.decode.foodhub.models.CategoryResponse
+import com.decode.foodhub.models.DetailMealResponse
 import com.decode.foodhub.models.RandomMeals
 import retrofit2.Response
 import retrofit2.http.GET
@@ -16,4 +17,9 @@ interface MealApiService {
 
     @GET("categories.php")
     suspend fun getCategory(): Response<CategoryResponse>
+
+    @GET("lookup.php?")
+    suspend fun getMeal(
+        @Query("i") mealId:String
+    ): Response<DetailMealResponse>
 }

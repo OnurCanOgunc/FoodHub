@@ -12,8 +12,8 @@ import com.decode.foodhub.adapter.CategoryAdapter
 import com.decode.foodhub.adapter.ViewPagerAdapter
 import com.decode.foodhub.base.BaseFragment
 import com.decode.foodhub.databinding.FragmentHomeBinding
+import com.decode.foodhub.models.Meal
 import com.decode.foodhub.models.RandomMeals
-import com.decode.foodhub.utils.Constants.CATEGORY_NAME
 import com.decode.foodhub.utils.NetworkResult
 import com.decode.foodhub.utils.initRecycler
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,8 +26,8 @@ class HomeFragment :
 
     override val viewModel: MainViewModel by viewModels()
 
-    private var urlList: ArrayList<String> = ArrayList()
-    private lateinit var adapter: ViewPagerAdapter
+    private var urlList: ArrayList<Meal> = ArrayList()
+    lateinit var adapter: ViewPagerAdapter
     @Inject
     lateinit var categoryAdapter: CategoryAdapter
 
@@ -45,7 +45,7 @@ class HomeFragment :
 
     override fun onCreateFinished() {
         initRecyclerView()
-        onItemClick()
+        categoryOnItemClick()
     }
 
     private fun setAdapter() {
@@ -53,14 +53,14 @@ class HomeFragment :
         binding.apply {
             viewPager.adapter = adapter
             tabs.setupWithViewPager(viewPager)
-
         }
     }
+
 
     private fun imgUrlList(meal: RandomMeals) {
         urlList.clear()
         meal.meals?.forEach {
-            it?.strMealThumb?.let { it1 -> urlList.add(it1) }
+            it?.let { it1 -> urlList.add(it1) }
         }
     }
 
@@ -75,9 +75,16 @@ class HomeFragment :
         )
     }
 
-    private fun onItemClick() {
+    private fun categoryOnItemClick() {
         categoryAdapter.onItemClick = {
             val nav = HomeFragmentDirections.actionHomeFragmentToCategoryMealsFragment(it.strCategory!!)
+            findNavController().navigate(nav)
+        }
+    }
+
+    private fun viewPagerOnItemClick() {
+        adapter.onItemClick = {
+            val nav = HomeFragmentDirections.actionHomeFragmentToDetailMealFragment(it.idMeal!!)
             findNavController().navigate(nav)
         }
     }
@@ -90,7 +97,7 @@ class HomeFragment :
                         is NetworkResult.Success -> {
                             imgUrlList(it.data)
                             setAdapter()
-
+                            viewPagerOnItemClick()
                         }
 
                         is NetworkResult.Error -> {
@@ -101,11 +108,7 @@ class HomeFragment :
                             ).show()
                         }
 
-                        NetworkResult.Loading -> {
-
-                        }
-
-                        NetworkResult.Empty -> {}
+                        else -> {}
                     }
                 }
             }
@@ -130,11 +133,7 @@ class HomeFragment :
                             ).show()
                         }
 
-                        NetworkResult.Loading -> {
-
-                        }
-
-                        NetworkResult.Empty -> {}
+                        else -> {}
                     }
                 }
             }

@@ -67,6 +67,7 @@ class CategoryMealsFragment :
         }
     }
 
+
     private fun rcvInit() {
         binding.rv.initRecycler(
             GridLayoutManager(

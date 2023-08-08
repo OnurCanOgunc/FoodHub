@@ -4,6 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.decode.foodhub.base.BaseRepository
 import com.decode.foodhub.models.CategoryResponse
+import com.decode.foodhub.models.DetailMealResponse
+import com.decode.foodhub.models.MealX
 import com.decode.foodhub.models.RandomMeals
 import com.decode.foodhub.utils.Constants.CATEGORY_NAME
 import com.decode.foodhub.utils.NetworkResult
@@ -23,6 +25,8 @@ class MainViewModel @Inject constructor(private val baseRepository: BaseReposito
     val categories = _categories.asStateFlow()
     private var _meal = MutableStateFlow<NetworkResult<RandomMeals>>(NetworkResult.Empty)
     val meal = _meal.asStateFlow()
+    private var _mealDetail = MutableStateFlow<NetworkResult<DetailMealResponse>>(NetworkResult.Empty)
+    val mealDetail = _mealDetail.asStateFlow()
 
 
     fun getrandomMeals() = viewModelScope.launch {
@@ -40,6 +44,12 @@ class MainViewModel @Inject constructor(private val baseRepository: BaseReposito
     fun getMeals(categoryName: String) = viewModelScope.launch {
         baseRepository.getRandomMeals(categoryName).collect {
             _meal.value = it
+        }
+    }
+
+    fun getMealDetail(mealId: String) = viewModelScope.launch{
+        baseRepository.getMeal(mealId).collect {
+            _mealDetail.value = it
         }
     }
 

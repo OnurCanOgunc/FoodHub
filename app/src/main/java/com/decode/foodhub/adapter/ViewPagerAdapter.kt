@@ -9,9 +9,12 @@ import android.widget.RelativeLayout
 import androidx.viewpager.widget.PagerAdapter
 import coil.load
 import com.decode.foodhub.R
+import com.decode.foodhub.models.Meal
 import dagger.hilt.android.qualifiers.ApplicationContext
 
-class ViewPagerAdapter(private val imageUrlList: List<String>, @ApplicationContext val context: Context): PagerAdapter() {
+class ViewPagerAdapter (private val imageUrlList: List<Meal>, @ApplicationContext val context: Context): PagerAdapter() {
+
+    var onItemClick: ((Meal) -> Unit)? = null
 
     override fun getCount(): Int = imageUrlList.size
 
@@ -24,9 +27,13 @@ class ViewPagerAdapter(private val imageUrlList: List<String>, @ApplicationConte
         val view = LayoutInflater.from(context).inflate(R.layout.adapter_viewpager,null)
 
         val imageView = view.findViewById<ImageView>(R.id.image)
-        imageView.load(imageUrlList[position]) {
+        imageView.load(imageUrlList[position].strMealThumb) {
             crossfade(true)
             crossfade(500)
+        }
+
+        imageView.setOnClickListener {
+            onItemClick?.invoke(imageUrlList[position])
         }
 
         container.addView(view,0)

@@ -5,7 +5,7 @@ import androidx.databinding.BindingAdapter
 import coil.load
 
 @BindingAdapter("app:load")
-fun load(imageView: ImageView, url: String) {
+fun load(imageView: ImageView, url: String?) {
     imageView.load(url) {
         crossfade(true)
         crossfade(500)
