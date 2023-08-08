@@ -10,10 +10,15 @@ import com.decode.foodhub.models.Meal
 
 class CategoryMealsAdapter: RecyclerView.Adapter<CategoryMealsAdapter.CategoryMeals>() {
 
+    var onItemClick:((Meal)->Unit)? = null
     class CategoryMeals(private val binding: CategoryMealsCardBinding) :
         RecyclerView.ViewHolder(binding.root) {
-            fun bind(meal: Meal) {
+            fun bind(meal: Meal,onItemClick:(Meal) -> Unit) {
                 binding.meal = meal
+
+                binding.cardMeal.setOnClickListener {
+                    onItemClick.invoke(meal)
+                }
             }
         }
 
@@ -25,7 +30,7 @@ class CategoryMealsAdapter: RecyclerView.Adapter<CategoryMealsAdapter.CategoryMe
     override fun getItemCount(): Int = differ.currentList.size
 
     override fun onBindViewHolder(holder: CategoryMeals, position: Int) {
-        holder.bind(differ.currentList[position])
+        holder.bind(differ.currentList[position],onItemClick!!)
 
     }
 

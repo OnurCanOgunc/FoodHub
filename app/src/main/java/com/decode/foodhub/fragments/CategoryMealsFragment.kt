@@ -6,6 +6,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.decode.foodhub.adapter.CategoryMealsAdapter
@@ -45,7 +46,9 @@ class CategoryMealsFragment :
                     when (it) {
                         is NetworkResult.Success -> {
                             adapter.differ.submitList(it.data.meals)
-                            binding.textView.text = "${args.categoryName}: ${adapter.differ.currentList.size}"
+                            binding.textView.text =
+                                "${args.categoryName}: ${adapter.differ.currentList.size}"
+                            onClickListener()
                         }
 
                         is NetworkResult.Error -> {
@@ -56,17 +59,20 @@ class CategoryMealsFragment :
                             ).show()
                         }
 
-                        NetworkResult.Loading -> {
-
-                        }
-
-                        NetworkResult.Empty -> {}
+                        else -> {}
                     }
                 }
             }
         }
     }
 
+    private fun onClickListener() {
+        adapter.onItemClick = {
+            val nav =
+                CategoryMealsFragmentDirections.actionCategoryMealsFragmentToDetailMealFragment(it.idMeal!!)
+            findNavController().navigate(nav)
+        }
+    }
 
     private fun rcvInit() {
         binding.rv.initRecycler(
