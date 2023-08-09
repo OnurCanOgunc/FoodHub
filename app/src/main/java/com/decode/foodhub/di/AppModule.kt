@@ -1,10 +1,14 @@
 package com.decode.foodhub.di
 
+import android.content.Context
+import androidx.room.Room
+import com.decode.foodhub.data.database.MealsDatabase
 import com.decode.foodhub.data.network.MealApiService
 import com.decode.foodhub.utils.Constants.BASE_URL
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -27,12 +31,29 @@ object AppModule {
     @Singleton
     fun provideRetrofit(
         okHttpClient: OkHttpClient
-    ): MealApiService {
+    ): Retrofit {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
-            .build().create(MealApiService::class.java)
+            .build()
     }
 
+    @Provides
+    @Singleton
+    fun provideApiService(retrofit: Retrofit): MealApiService =
+        retrofit.create(MealApiService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideDatabase(@ApplicationContext context: Context) =
+        Room.databaseBuilder(context, MealsDatabase::class.java, "meal.sqlite")
+            .build()
+
+
+    @Singleton
+    @Provides
+    fun provideDao(database: MealsDatabase) = database.mealsDao()
+
 }
+

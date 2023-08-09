@@ -18,8 +18,14 @@ interface MealApiService {
     @GET("categories.php")
     suspend fun getCategory(): Response<CategoryResponse>
 
-    @GET("lookup.php?")
+    @GET("lookup.php")
     suspend fun getMeal(
         @Query("i") mealId:String
     ): Response<DetailMealResponse>
+
+    @GET("search.php")
+    suspend fun searchMeal(
+        @Query("f") firstLetter:String
+    ): Response<DetailMealResponse>
+
 }
