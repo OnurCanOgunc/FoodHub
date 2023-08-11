@@ -1,8 +1,5 @@
 package com.decode.foodhub.fragments
 
-import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.decode.foodhub.base.BaseRepository
@@ -13,10 +10,8 @@ import com.decode.foodhub.models.RandomMeals
 import com.decode.foodhub.utils.Constants.CATEGORY_NAME
 import com.decode.foodhub.utils.NetworkResult
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -35,8 +30,8 @@ class MainViewModel @Inject constructor(private val baseRepository: BaseReposito
     private var _mealDetail = MutableStateFlow<NetworkResult<DetailMealResponse>>(NetworkResult.Empty)
     val mealDetail = _mealDetail.asStateFlow()
 
-    private var _mealSearch = MutableStateFlow<NetworkResult<DetailMealResponse>>(NetworkResult.Empty)
-    val mealSearch = _mealSearch.asStateFlow()
+    //private var _mealSearch = MutableStateFlow<NetworkResult<DetailMealResponse>>(NetworkResult.Empty)
+    //val mealSearch = _mealSearch.asStateFlow()
 
     private var _favMeals = MutableStateFlow<List<MealX>>(mutableListOf())
     val favMeals = _favMeals.asStateFlow()
@@ -66,13 +61,13 @@ class MainViewModel @Inject constructor(private val baseRepository: BaseReposito
             _mealDetail.value = it
         }
     }
-
+/*
     fun searchMeal(firstLetter: String) = viewModelScope.launch {
         baseRepository.searchMeal(firstLetter).collect {
             _mealSearch.value = it
         }
     }
-
+*/
     //Room
     fun insertMeal(mealX: MealX) = viewModelScope.launch {
         baseRepository.insertMeal(mealX)

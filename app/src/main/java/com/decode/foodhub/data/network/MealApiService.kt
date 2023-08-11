@@ -22,10 +22,10 @@ interface MealApiService {
     suspend fun getMeal(
         @Query("i") mealId:String
     ): Response<DetailMealResponse>
-
+/*
     @GET("search.php")
     suspend fun searchMeal(
         @Query("f") firstLetter:String
     ): Response<DetailMealResponse>
-
+*/
 }

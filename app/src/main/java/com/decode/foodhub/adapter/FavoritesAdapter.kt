@@ -10,11 +10,16 @@ import com.decode.foodhub.models.MealX
 
 class FavoritesAdapter: RecyclerView.Adapter<FavoritesAdapter.FavoritesViewHolder>() {
 
+    var onItemClick: ((MealX) -> Unit)? = null
     class FavoritesViewHolder(private val binding: CategoryMealsCardBinding) :
         RecyclerView.ViewHolder(binding.root) {
-            fun bind(mealX: MealX) {
+            fun bind(mealX: MealX,onItemClick:(MealX)->Unit) {
                 binding.mealX = mealX
                 binding.bool = false
+
+                binding.cardMeal.setOnClickListener {
+                    onItemClick.invoke(mealX)
+                }
             }
         }
 
@@ -24,10 +29,10 @@ class FavoritesAdapter: RecyclerView.Adapter<FavoritesAdapter.FavoritesViewHolde
         return FavoritesViewHolder(binding)
     }
 
-    override fun getItemCount() = deffer.currentList.size
+    override fun getItemCount() = differ.currentList.size
 
     override fun onBindViewHolder(holder: FavoritesViewHolder, position: Int) {
-        holder.bind(deffer.currentList[position])
+        holder.bind(differ.currentList[position],onItemClick!!)
     }
 
     private val defferCalBack = object : DiffUtil.ItemCallback<MealX>() {
@@ -41,5 +46,5 @@ class FavoritesAdapter: RecyclerView.Adapter<FavoritesAdapter.FavoritesViewHolde
 
     }
 
-    val deffer = AsyncListDiffer(this,defferCalBack)
+    val differ = AsyncListDiffer(this,defferCalBack)
 }

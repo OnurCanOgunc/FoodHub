@@ -1,7 +1,10 @@
 package com.decode.foodhub.fragments
 
+import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.widget.PopupMenu
 import androidx.appcompat.widget.SearchView.OnQueryTextListener
@@ -17,7 +20,6 @@ import com.decode.foodhub.adapter.ViewPagerAdapter
 import com.decode.foodhub.base.BaseFragment
 import com.decode.foodhub.databinding.FragmentHomeBinding
 import com.decode.foodhub.models.Meal
-import com.decode.foodhub.models.MealX
 import com.decode.foodhub.models.RandomMeals
 import com.decode.foodhub.utils.NetworkResult
 import com.decode.foodhub.utils.initRecycler
@@ -61,12 +63,10 @@ class HomeFragment :
         binding.searchView.setOnQueryTextListener(object : OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 binding.searchView.clearFocus()
-                //filterList(query)
                 return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                //filterList(newText)
                 return true
             }
 
@@ -85,7 +85,8 @@ class HomeFragment :
                         true
                     }
                     R.id.action_exit -> {
-                        exitProcess(0)
+                        showAlertDialog2()
+                        true
                     }
                     else -> {false}
                 }
@@ -93,26 +94,22 @@ class HomeFragment :
         }
     }
 
-    private fun filterList(newText: String?) {
-        if (newText != null) {
-            viewModel.searchMeal(newText)
-            val filteredList = ArrayList<MealX>()
+    private fun showAlertDialog2() {
+        val dialog = Dialog(requireContext())
+        dialog.setCancelable(false)
+        dialog.setContentView(R.layout.layout_custom_dialog)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
-            lifecycleScope.launch {
-                repeatOnLifecycle(Lifecycle.State.STARTED) {
-                    viewModel.mealSearch.collect {
-                        when(it) {
-                            is NetworkResult.Success -> {
-                                Log.e("dever", it.data.meals!![0].strMeal!!)
-                            }
-                            is NetworkResult.Error -> {}
-                            else -> {}
-                        }
-                    }
-                }
-            }
+        val btnYes = dialog.findViewById<Button>(R.id.btn_yes)
+        val btnNo = dialog.findViewById<Button>(R.id.btn_no)
 
+        btnYes.setOnClickListener {
+            exitProcess(0)
         }
+        btnNo.setOnClickListener {
+            dialog.dismiss()
+        }
+        dialog.show()
     }
 
     private fun setAdapter() {

@@ -16,4 +16,8 @@
     <string name="menu">MENU</string>
     <string name="k">Çıkış</string>
     <string name="favoriler">Favoriler</string>
+    <string name="cikis">Çıkış</string>
+    <string name="k_yapmak_stedi_inize_emin_misiniz">Çıkış Yapmak İstediğinize Emin misiniz?</string>
+    <string name="evet">Evet</string>
+    <string name="hay_r">Hayır</string>
 </resources>

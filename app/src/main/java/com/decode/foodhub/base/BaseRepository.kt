@@ -5,8 +5,6 @@ import com.decode.foodhub.data.network.MealApiService
 import com.decode.foodhub.models.MealX
 import com.decode.foodhub.utils.result
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -26,11 +24,11 @@ class BaseRepository @Inject constructor(
     fun getCategory() = result {
         apiService.getCategory()
     }
-
+/*
     fun searchMeal(firstLetter: String) = result {
         apiService.searchMeal(firstLetter)
     }
-
+*/
     //Room
     suspend fun insertMeal(mealX: MealX) = withContext(Dispatchers.IO) {
         mealsDao.updateMeal(mealX)
