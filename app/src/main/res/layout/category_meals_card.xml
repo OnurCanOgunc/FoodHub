@@ -6,6 +6,10 @@
         <variable
             name="meal"
             type="com.decode.foodhub.models.Meal" />
+        <variable
+            name="mealX"
+            type="com.decode.foodhub.models.MealX" />
+        <variable name="bool" type="Boolean"/>
     </data>
 
     <androidx.cardview.widget.CardView
@@ -27,14 +31,14 @@
                 android:layout_marginTop="8dp"
                 android:contentDescription="@string/meal_image"
                 android:scaleType="fitCenter"
-                app:load="@{meal.strMealThumb}"
+                app:load="@{bool ? meal.strMealThumb:mealX.strMealThumb}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/meal_name"
-                android:text="@{meal.strMeal}"
+                android:text="@{bool ?meal.strMeal:mealX.strMeal}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"

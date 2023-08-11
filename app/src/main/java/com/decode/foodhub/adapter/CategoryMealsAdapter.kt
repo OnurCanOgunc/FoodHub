@@ -15,6 +15,7 @@ class CategoryMealsAdapter: RecyclerView.Adapter<CategoryMealsAdapter.CategoryMe
         RecyclerView.ViewHolder(binding.root) {
             fun bind(meal: Meal,onItemClick:(Meal) -> Unit) {
                 binding.meal = meal
+                binding.bool = true
 
                 binding.cardMeal.setOnClickListener {
                     onItemClick.invoke(meal)

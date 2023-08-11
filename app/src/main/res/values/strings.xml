@@ -13,4 +13,7 @@
     <string name="payla">Paylaş</string>
     <string name="tarif">Tarif:</string>
     <string name="kaydet">Kaydet</string>
+    <string name="menu">MENU</string>
+    <string name="k">Çıkış</string>
+    <string name="favoriler">Favoriler</string>
 </resources>

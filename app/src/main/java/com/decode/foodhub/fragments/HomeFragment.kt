@@ -3,6 +3,7 @@ package com.decode.foodhub.fragments
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.widget.PopupMenu
 import androidx.appcompat.widget.SearchView.OnQueryTextListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -10,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.decode.foodhub.R
 import com.decode.foodhub.adapter.CategoryAdapter
 import com.decode.foodhub.adapter.ViewPagerAdapter
 import com.decode.foodhub.base.BaseFragment
@@ -22,6 +24,7 @@ import com.decode.foodhub.utils.initRecycler
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.system.exitProcess
 
 @AndroidEntryPoint
 class HomeFragment :
@@ -51,6 +54,7 @@ class HomeFragment :
         initRecyclerView()
         categoryOnItemClick()
         searchMeal()
+        menu()
     }
 
     private fun searchMeal() {
@@ -67,6 +71,26 @@ class HomeFragment :
             }
 
         })
+    }
+
+    private fun menu() {
+        binding.popupMenu.setOnClickListener { view ->
+            val menu = PopupMenu(requireContext(),view)
+            menu.menuInflater.inflate(R.menu.main_menu,menu.menu)
+            menu.show()
+            menu.setOnMenuItemClickListener {
+                when(it.itemId) {
+                    R.id.action_fav -> {
+                        findNavController().navigate(R.id.action_homeFragment_to_favoritesMealFragment)
+                        true
+                    }
+                    R.id.action_exit -> {
+                        exitProcess(0)
+                    }
+                    else -> {false}
+                }
+            }
+        }
     }
 
     private fun filterList(newText: String?) {

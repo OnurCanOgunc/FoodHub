@@ -15,6 +15,9 @@
         <action
             android:id="@+id/action_homeFragment_to_detailMealFragment"
             app:destination="@id/detailMealFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_favoritesMealFragment"
+            app:destination="@id/favoritesMealFragment" />
     </fragment>
     <fragment
         android:id="@+id/categoryMealsFragment"
@@ -35,4 +38,9 @@
         tools:layout="@layout/fragment_detail_meal" >
         <argument android:name="id" />
     </fragment>
+    <fragment
+        android:id="@+id/favoritesMealFragment"
+        android:name="com.decode.foodhub.fragments.FavoritesMealFragment"
+        android:label="fragment_favorites_meal"
+        tools:layout="@layout/fragment_favorites_meal" />
 </navigation>

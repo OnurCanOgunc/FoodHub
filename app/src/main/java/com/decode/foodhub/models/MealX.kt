@@ -3,8 +3,9 @@ package com.decode.foodhub.models
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.decode.foodhub.utils.Constants.MEALS_TABLE
 
-@Entity(tableName = "mealSav")
+@Entity(tableName = MEALS_TABLE)
 data class MealX(
     val dateModified: Any?,
     @PrimaryKey

@@ -5,6 +5,7 @@ import androidx.room.Room
 import com.decode.foodhub.data.database.MealsDatabase
 import com.decode.foodhub.data.network.MealApiService
 import com.decode.foodhub.utils.Constants.BASE_URL
+import com.decode.foodhub.utils.Constants.MEALS_DATABASE
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -47,7 +48,9 @@ object AppModule {
     @Provides
     @Singleton
     fun provideDatabase(@ApplicationContext context: Context) =
-        Room.databaseBuilder(context, MealsDatabase::class.java, "meal.sqlite")
+        Room.databaseBuilder(context, MealsDatabase::class.java, MEALS_DATABASE)
+            .allowMainThreadQueries()
+            .fallbackToDestructiveMigration()
             .build()
 
 
