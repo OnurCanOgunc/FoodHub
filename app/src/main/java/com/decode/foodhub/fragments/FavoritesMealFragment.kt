@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.decode.foodhub.adapter.FavoritesAdapter
 import com.decode.foodhub.base.BaseFragment
 import com.decode.foodhub.databinding.FragmentFavoritesMealBinding
+import com.decode.foodhub.models.MealX
 import com.decode.foodhub.utils.initRecycler
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
