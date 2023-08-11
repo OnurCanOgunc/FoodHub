@@ -1,5 +1,7 @@
 package com.decode.foodhub.fragments
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -33,7 +35,7 @@ class DetailMealFragment :
     }
 
     override fun onCreateFinished() {
-
+        likedMeal()
     }
 
     private fun detailMeal() {
@@ -45,6 +47,8 @@ class DetailMealFragment :
                             val meal = it.data.meals?.get(0)
                             binding.detailMeal = meal
                             insertMeal(meal)
+                            navYoutube(meal)
+                            shareMeal(meal)
                         }
 
                         is NetworkResult.Error -> {
@@ -55,6 +59,31 @@ class DetailMealFragment :
                     }
                 }
             }
+        }
+    }
+
+    private fun navYoutube(meal: MealX?) {
+        binding.fab.setOnClickListener {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(meal?.strYoutube)))
+        }
+    }
+
+    private fun likedMeal() {
+        binding.textLike.setOnClickListener {
+            Toast.makeText(requireContext(),"\uD83D\uDC4C",Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun shareMeal(meal: MealX?) {
+        binding.textShare.setOnClickListener {
+            val  intent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TITLE,meal?.strMeal)
+                putExtra(Intent.EXTRA_TEXT,meal?.strYoutube)
+                type = "text/plain"
+            }
+            val shareIntent = Intent.createChooser(intent, null)
+            startActivity(shareIntent)
         }
     }
 

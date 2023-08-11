@@ -1,5 +1,6 @@
 package com.decode.foodhub.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.Toast
 import androidx.fragment.app.viewModels
@@ -39,6 +40,7 @@ class CategoryMealsFragment :
         rcvInit()
     }
 
+    @SuppressLint("SetTextI18n")
     private fun randomMeals() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {

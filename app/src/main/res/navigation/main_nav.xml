@@ -42,5 +42,9 @@
         android:id="@+id/favoritesMealFragment"
         android:name="com.decode.foodhub.fragments.FavoritesMealFragment"
         android:label="fragment_favorites_meal"
-        tools:layout="@layout/fragment_favorites_meal" />
+        tools:layout="@layout/fragment_favorites_meal" >
+        <action
+            android:id="@+id/action_favoritesMealFragment_to_detailMealFragment"
+            app:destination="@id/detailMealFragment" />
+    </fragment>
 </navigation>
